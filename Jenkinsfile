@@ -1,4 +1,4 @@
-﻿pipeline {
+pipeline {
     agent any
 
     tools {
@@ -15,21 +15,21 @@
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=walidwh-app'
+                    bat 'mvn sonar:sonar -Dsonar.projectKey=walidwh-app'
                 }
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t walidwh-app .'
+                bat 'docker build -t walidwh-app .'
             }
         }
     }
