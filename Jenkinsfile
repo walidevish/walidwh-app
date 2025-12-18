@@ -6,12 +6,11 @@ pipeline {
         jdk 'jdkwh'
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/walidevish/walidwh-app.git'
-            }
-        }
+    stage('Checkout') {
+    steps {
+        git branch: 'main', url: 'https://github.com/walidevish/walidwh-app.git', tool: 'gitwh'
+    }
+}
 
         stage('Build') {
             steps {
