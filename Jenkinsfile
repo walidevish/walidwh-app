@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        SONARQUBE = credentials('walidwh-app') 
+        SONARQUBE = credentials('walidwh') 
     }
 
     stages {
