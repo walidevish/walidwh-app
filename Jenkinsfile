@@ -2,31 +2,26 @@ pipeline {
     agent any
 
     tools {
-        maven 'mavenwh'  
-        jdk 'jdkwh'       
-    }
-
-    environment {
-        SONARQUBE = credentials('walidwh') 
+        maven 'mavenwh'   // Make sure this matches the Maven tool name you configured
+        jdk 'jdkwh'       // Make sure this matches the JDK name
     }
 
     stages {
-
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/walidevish/walidwh-app.git'
+                git 'https://github.com/walidevish/walidwh-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean package'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('walidwh') {  // Name of your SonarQube server configured in Jenkins
                     sh 'mvn sonar:sonar'
                 }
             }
@@ -40,8 +35,11 @@ pipeline {
     }
 
     post {
+        always {
+            echo 'Pipeline finished.'
+        }
         success {
-            echo 'Pipeline succeeded!'
+            echo 'Pipeline succeeded.'
         }
         failure {
             echo 'Pipeline failed.'
