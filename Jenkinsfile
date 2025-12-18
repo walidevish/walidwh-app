@@ -8,7 +8,7 @@ pipeline {
 
     stage('Checkout') {
     steps {
-        git branch: 'main', url: 'https://github.com/walidevish/walidwh-app.git', tool: 'gitwh'
+        git branch: 'main', url: 'https://github.com/walidevish/walidwh-app.git'
     }
 }
 
